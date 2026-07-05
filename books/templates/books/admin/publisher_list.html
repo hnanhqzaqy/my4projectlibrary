@@ -1,0 +1,117 @@
+{% extends "shared/_admin_layout.html" %}
+
+{% block sidebar %}
+
+    {% include "shared/_admin_sidebar.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h3>ناشران</h3>
+
+        <a href="{% url 'publisher-create' %}" class="btn btn-success">
+            افزودن ناشر
+        </a>
+
+    </div>
+
+    <form method="get" class="mb-3">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <input
+                    type="text"
+                    name="search"
+                    class="form-control"
+                    placeholder="جستجوی ناشر..."
+                    value="{{ request.GET.search }}"
+                >
+
+            </div>
+
+            <div class="col-md-2">
+
+                <button class="btn btn-primary w-100">
+
+                    جستجو
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+
+        <tr>
+
+            <th>ردیف</th>
+            <th>نام ناشر</th>
+            <th>عملیات</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for publisher in publishers %}
+
+            <tr>
+
+                <td>{{ publisher.id }}</td>
+
+                <td><a href="{% url 'publisher-detail' publisher.pk %}" class="text-dark fw-semibold text-decoration-none">{{ publisher.name }}</a></td>
+
+                <td>
+
+                    <a
+                        href="{% url 'publisher-update' publisher.id %}"
+                        class="btn btn-warning btn-sm"
+                    >
+                        ویرایش
+                    </a>
+
+                    <a
+                        href="{% url 'publisher-delete' publisher.id %}"
+                        class="btn btn-danger btn-sm"
+                    >
+                        حذف
+                    </a>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="3">
+
+                    هیچ ناشری ثبت نشده است.
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

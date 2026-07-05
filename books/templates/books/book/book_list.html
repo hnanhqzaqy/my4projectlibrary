@@ -1,0 +1,103 @@
+{% extends "shared/_layout.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h3>کتاب‌ها</h3>
+
+    </div>
+
+    <form method="get" class="mb-3">
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <input
+                    type="text"
+                    name="search"
+                    class="form-control"
+                    placeholder="جستجو بر اساس عنوان، نویسنده، ناشر، دسته‌بندی یا ISBN"
+                    value="{{ request.GET.search }}"
+                >
+
+            </div>
+
+            <div class="col-md-2">
+
+                <button class="btn btn-primary w-100">
+                    جستجو
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <table class="table table-bordered table-striped table-hover">
+
+        <thead>
+
+        <tr>
+
+            <th>ردیف</th>
+            <th>عنوان</th>
+            <th>دسته‌بندی</th>
+            <th>نویسنده</th>
+            <th>ناشر</th>
+            <th>سال</th>
+            <th>وضعیت</th>
+
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for book in books %}
+
+            <tr>
+
+                <td>{{ book.id }}</td>
+               <td><a href="{% url 'book-detail' book.pk %}" class="book-link text-dark fw-bold text-decoration-none">{{ book.title }}</a></td>
+                <td>{{ book.category.name }}</td>
+                <td>{{ book.author.full_name }}</td>
+                <td>{{ book.publisher.name }}</td>
+                <td>{{ book.publish_year }}</td>
+
+                <td>
+                    {% if book.is_available %}
+                        <span class="badge bg-success">موجود</span>
+                    {% else %}
+                        <span class="badge bg-danger">ناموجود</span>
+                    {% endif %}
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="8">
+
+                    هیچ کتابی ثبت نشده است.
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

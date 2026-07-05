@@ -1,0 +1,21 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}
+بررسی درخواست
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3>
+
+        بررسی درخواست امانت
+
+    </h3>
+
+    {% include "shared/_form.html" with cancel_url="borrow-list" %}
+
+</div>
+
+{% endblock %}

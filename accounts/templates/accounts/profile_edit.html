@@ -1,0 +1,49 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}
+ویرایش اطلاعات
+{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header">
+
+        <h4>
+            ویرایش اطلاعات
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button
+                    type="submit"
+                    class="btn btn-success">
+
+                ذخیره تغییرات
+
+            </button>
+
+            <a
+                    href="{% url 'profile' %}"
+                    class="btn btn-secondary">
+
+                انصراف
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

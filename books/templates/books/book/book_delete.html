@@ -1,0 +1,47 @@
+{% extends "shared/_admin_layout.html" %}
+
+{% block sidebar %}
+
+    {% include "shared/_admin_sidebar.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3>حذف کتاب</h3>
+
+    <hr>
+
+    <p>
+
+        آیا از حذف کتاب
+
+        <strong>{{ object.title }}</strong>
+
+        مطمئن هستید؟
+
+    </p>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <button class="btn btn-danger">
+
+            حذف
+
+        </button>
+
+        <a href="{% url 'book-list' %}" class="btn btn-secondary">
+
+            انصراف
+
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

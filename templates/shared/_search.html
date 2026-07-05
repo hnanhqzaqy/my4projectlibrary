@@ -1,0 +1,26 @@
+<form method="get" class="row mb-3">
+
+    <div class="col-md-10">
+
+        <input
+            type="text"
+            name="search"
+            value="{{ request.GET.search }}"
+            class="form-control"
+            placeholder="جستجو..."
+        >
+
+    </div>
+
+    <div class="col-md-2">
+
+        <button
+            type="submit"
+            class="btn btn-primary w-100"
+        >
+            جستجو
+        </button>
+
+    </div>
+
+</form>

@@ -1,0 +1,89 @@
+```django
+{% extends "shared/_layout.html" %}
+
+{% block title %}
+ثبت نام
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+
+                <h4 class="mb-0 text-center">
+
+                    ثبت نام
+
+                </h4>
+
+            </div>
+
+            <div class="card-body">
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+                    {% for field in form %}
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+
+                                {{ field.label }}
+
+                            </label>
+
+                            {{ field }}
+
+                            {% if field.errors %}
+
+                                <div class="text-danger mt-1">
+
+                                    {{ field.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endfor %}
+
+                    <button
+                        type="submit"
+                        class="btn btn-success w-100">
+
+                        ثبت نام
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div class="card-footer text-center">
+
+                قبلاً ثبت نام کرده‌اید؟
+
+                <a href="{% url 'login' %}">
+
+                    ورود
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+```

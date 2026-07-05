@@ -1,0 +1,17 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}
+ویرایش امانت
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3>ویرایش امانت</h3>
+
+    {% include "shared/_form.html" with cancel_url="borrow-list" %}
+
+</div>
+
+{% endblock %}

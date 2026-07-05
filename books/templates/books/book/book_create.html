@@ -1,0 +1,21 @@
+{% extends "shared/_admin_layout.html" %}
+
+{% block sidebar %}
+
+    {% include "shared/_admin_sidebar.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3>ثبت کتاب جدید</h3>
+
+    <hr>
+
+    {% include "shared/_form.html" with cancel_url="book-list" %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+<form method="post">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-success">
+        ذخیره
+    </button>
+
+    <a href="{% url 'author-list' %}" class="btn btn-secondary">
+        بازگشت
+    </a>
+
+</form>

@@ -1,0 +1,198 @@
+{% extends "shared/_admin_layout.html" %}
+
+{% block sidebar %}
+
+    {% include "shared/_admin_sidebar.html" %}
+
+{% endblock %}
+
+{% block title %}
+{{ book.title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <!-- تصویر کتاب -->
+
+                <div class="col-md-4 text-center">
+
+                    {% if book.image %}
+
+                        <img
+                            src="{{ book.image.url }}"
+                            class="img-fluid rounded shadow"
+                            alt="{{ book.title }}">
+
+                    {% else %}
+
+                        <div class="border rounded p-5 bg-light">
+
+                            تصویر کتاب موجود نیست
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+                <!-- اطلاعات -->
+
+                <div class="col-md-8">
+
+                    <h2 class="mb-3">
+
+                        {{ book.title }}
+
+                    </h2>
+
+                    <hr>
+
+                    <h5>خلاصه کتاب</h5>
+
+                    {% if book.summary %}
+
+                        <p>
+
+                            {{ book.summary }}
+
+                        </p>
+
+                    {% else %}
+
+                        <p class="text-muted">
+
+                            خلاصه‌ای برای این کتاب ثبت نشده است.
+
+                        </p>
+
+                    {% endif %}
+
+                    <hr>
+
+                    <h5>توضیحات</h5>
+
+                    {% if book.description %}
+
+                        <p>
+
+                            {{ book.description }}
+
+                        </p>
+
+                    {% else %}
+
+                        <p class="text-muted">
+
+                            توضیحی ثبت نشده است.
+
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <hr class="my-4">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p>
+
+                        <strong>ISBN:</strong>
+
+                        {{ book.isbn }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>سال انتشار:</strong>
+
+                        {{ book.publish_year }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>تعداد صفحات:</strong>
+
+                        {{ book.pages }}
+
+                    </p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p>
+
+                        <strong>زبان:</strong>
+
+                        {{ book.language }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>تعداد نسخه:</strong>
+
+                        {{ book.copies }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>وضعیت:</strong>
+
+                        {% if book.is_available %}
+
+                            <span class="badge bg-success">
+
+                                موجود
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+
+                                ناموجود
+
+                            </span>
+
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <a
+                href="{% url 'book-list' %}"
+                class="btn btn-secondary">
+
+                بازگشت به لیست کتاب‌ها
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

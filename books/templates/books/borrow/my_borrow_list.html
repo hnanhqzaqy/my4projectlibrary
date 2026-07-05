@@ -1,0 +1,155 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}
+امانت‌های من
+{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+
+    <div class="card-header">
+<div class="d-flex justify-content-end mb-3">
+        <h4 class="mb-0">
+
+            امانت‌های من
+
+        </h4>
+
+
+    <a
+        href="{% url 'borrow-create' %}"
+        class="btn btn-success">
+
+        📚 درخواست امانت
+
+    </a>
+
+</div>
+    </div>
+
+    <div class="card-body">
+
+<div class="row mb-4">
+
+    <div class="col-md-4">
+        <div class="card border-warning shadow-sm">
+            <div class="card-body text-center">
+                <h6 class="text-warning">🟡 در انتظار</h6>
+                <h2>{{ pending_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-success shadow-sm">
+            <div class="card-body text-center">
+                <h6 class="text-success">🟢 تأیید شده</h6>
+                <h2>{{ approved_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-primary shadow-sm">
+            <div class="card-body text-center">
+                <h6 class="text-primary">🔵 تحویل داده شده</h6>
+                <h2>{{ returned_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+        {% if borrows %}
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+
+                        <th>کتاب</th>
+                        <th>تاریخ درخواست</th>
+                        <th>وضعیت</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for borrow in borrows %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ borrow.book.title }}
+
+                        </td>
+
+                        <td>
+
+                            {{ borrow.request_date }}
+
+                        </td>
+
+ <td>
+
+    {% if borrow.status == borrow.STATUS_PENDING %}
+
+        <span class="badge bg-warning text-dark">
+            ⏳ {{ borrow.get_status_display }}
+        </span>
+
+    {% elif borrow.status == borrow.STATUS_APPROVED %}
+
+        <span class="badge bg-success">
+            ✅ {{ borrow.get_status_display }}
+        </span>
+
+    {% elif borrow.status == borrow.STATUS_REJECTED %}
+
+        <span class="badge bg-danger">
+            ❌ {{ borrow.get_status_display }}
+        </span>
+
+    {% elif borrow.status == borrow.STATUS_RETURNED %}
+
+        <span class="badge bg-primary">
+            📦 {{ borrow.get_status_display }}
+        </span>
+
+    {% else %}
+
+        <span class="badge bg-secondary">
+            {{ borrow.get_status_display }}
+        </span>
+
+    {% endif %}
+
+</td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        {% else %}
+
+            <div class="alert alert-info">
+
+                هنوز هیچ امانتی ثبت نکرده‌اید.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

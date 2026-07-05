@@ -1,0 +1,127 @@
+<div class="p-3 d-flex flex-column vh-100">
+
+    <div>
+
+        <h4 class="text-center mb-4">
+
+            مدیریت کتابخانه
+
+        </h4>
+
+        <div class="list-group">
+
+            <a href="{% url 'dashboard' %}"
+               class="list-group-item list-group-item-action {% if sidebar == "dashboard" %}active{% endif %}">
+
+                📊 داشبورد
+
+            </a>
+
+            <a href="{% url 'admin-book-list' %}"
+               class="list-group-item list-group-item-action {% if sidebar == "book" %}active{% endif %}">
+
+                📚 کتاب‌ها
+
+            </a>
+
+            <a href="{% url 'admin-borrow-list' %}"
+               class="list-group-item list-group-item-action {% if sidebar == "borrow" %}active{% endif %}">
+
+                📖 امانت‌ها
+
+            </a>
+
+            <a href="{% url 'admin-author-list' %}"
+               class="list-group-item list-group-item-action {% if sidebar == "author" %}active{% endif %}">
+
+                ✍️ نویسندگان
+
+            </a>
+
+            <a href="{% url 'admin-publisher-list' %}"
+               class="list-group-item list-group-item-action {% if sidebar == "publisher" %}active{% endif %}">
+
+                🏢 ناشران
+
+            </a>
+
+            <a href="{% url 'admin-category-list' %}"
+               class="list-group-item list-group-item-action {% if sidebar == "category" %}active{% endif %}">
+
+                🗂 دسته‌بندی‌ها
+
+            </a>
+
+            <a href="{% url 'admin-user-list' %}"
+               class="list-group-item list-group-item-action {% if sidebar == "user" %}active{% endif %}">
+
+                👥 کاربران
+
+            </a>
+
+        </div>
+
+    </div>
+<div class="mt-auto">
+
+    <hr>
+
+    <div class="dropdown">
+
+        <button
+                class="btn btn-outline-light w-100 dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+
+            👤 {{ request.user.username }}
+
+        </button>
+
+        <ul class="dropdown-menu w-100">
+
+            <li>
+
+                <a
+                    class="dropdown-item"
+                    href="{% url 'profile' %}">
+
+                    👤 پروفایل
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <hr class="dropdown-divider">
+
+            </li>
+
+            <li>
+
+                <form
+                        method="post"
+                        action="{% url 'logout' %}">
+
+                    {% csrf_token %}
+
+                    <button
+                            type="submit"
+                            class="dropdown-item text-danger">
+
+                        🚪 خروج
+
+                    </button>
+
+                </form>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+</div>

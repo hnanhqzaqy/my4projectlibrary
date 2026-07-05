@@ -1,0 +1,28 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}
+ثبت امانت
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3>
+
+        ثبت امانت
+
+    </h3>
+
+    <div class="alert alert-info">
+
+پس از ثبت درخواست، مدیر سیستم درخواست شما را بررسی خواهد کرد.
+پس از تأیید، تاریخ امانت و تاریخ تحویل برای شما مشخص می‌شود.
+
+</div>
+
+    {% include "shared/_form.html" with cancel_url="borrow-list" %}
+
+</div>
+
+{% endblock %}

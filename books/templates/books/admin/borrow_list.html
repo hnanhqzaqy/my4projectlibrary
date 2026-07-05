@@ -1,0 +1,208 @@
+{% extends "shared/_admin_layout.html" %}
+{% block title %}
+امانت‌ها
+{% endblock %}
+
+{% block sidebar %}
+
+    {% include "shared/_admin_sidebar.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <h3>
+        لیست امانت‌ها
+    </h3>
+
+    <a
+        href="{% url 'borrow-create' %}"
+        class="btn btn-success">
+
+        ثبت امانت
+
+    </a>
+
+</div>
+
+<div class="alert alert-info">
+
+    تعداد کتاب‌های امانت داده شده:
+    <strong>
+
+        {{ active_borrows_count }}
+
+    </strong>
+
+</div>
+
+{% if borrows %}
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>ردیف</th>
+
+            <th>کتاب</th>
+
+            <th>کاربر</th>
+
+            <th>وضعیت</th>
+
+            <th>تاریخ امانت</th>
+
+            <th>تاریخ تحویل</th>
+
+            <th>تاریخ بازگشت</th>
+
+            {% if request.user.is_superuser %}
+                <th>عملیات</th>
+            {% endif %}
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for borrow in borrows %}
+
+        <tr>
+
+            <td>{{ forloop.counter }}</td>
+
+            <td>{{ borrow.book }}</td>
+
+            <td>{{ borrow.user }}</td>
+
+            <td>{% if borrow.status == "pending" %}
+
+    <span class="badge bg-warning text-dark">
+
+        در انتظار تأیید
+
+    </span>
+
+{% elif borrow.status == "approved" %}
+
+    <span class="badge bg-primary">
+
+        تأیید شده
+
+    </span>
+
+{% elif borrow.status == "returned" %}
+
+    <span class="badge bg-success">
+
+        تحویل شده
+
+    </span>
+
+{% elif borrow.status == "rejected" %}
+
+    <span class="badge bg-danger">
+
+        رد شده
+
+    </span>
+
+{% endif %}
+
+{% if borrow.status == "rejected" and borrow.reject_reason %}
+
+    <br>
+
+    <small class="text-danger">
+
+        {{ borrow.reject_reason }}
+
+    </small>
+
+{% endif %}
+
+</td>
+
+            <td>{{ borrow.borrow_date|default:"-" }}</td>
+
+            <td>{{ borrow.due_date|default:"-" }}</td>
+
+            <td>{{ borrow.return_date|default:"-" }}</td>
+
+            {% if request.user.is_superuser %}
+<td>
+
+    {% if borrow.status == "pending" %}
+
+        <a
+            href="{% url 'borrow-approve' borrow.pk %}"
+            class="btn btn-primary btn-sm">
+
+            بررسی
+
+        </a>
+
+    {% elif borrow.status == "approved" %}
+
+        <form
+            action="{% url 'borrow-return' borrow.pk %}"
+            method="post"
+            class="d-inline">
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                class="btn btn-success btn-sm">
+
+                بازگرداندن
+
+            </button>
+
+        </form>
+
+    {% elif borrow.status == "returned" %}
+
+        <span class="badge bg-success">
+
+            تحویل شده
+
+        </span>
+
+    {% elif borrow.status == "rejected" %}
+
+        <span class="badge bg-danger">
+
+            رد شده
+
+        </span>
+
+    {% endif %}
+
+</td>
+            {% endif %}
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% else %}
+
+<div class="alert alert-info">
+
+    هنوز امانتی ثبت نشده است.
+
+</div>
+
+{% endif %}
+
+{% endblock %}

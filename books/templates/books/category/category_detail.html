@@ -1,0 +1,119 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}
+{{ category.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <h2>
+
+                {{ category.name }}
+
+            </h2>
+
+            <hr>
+
+            <h4>
+
+                کتاب‌های این دسته‌بندی
+
+            </h4>
+
+            <table class="table table-bordered table-hover mt-3">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th style="width:80px">
+                            ردیف
+                        </th>
+
+                        <th>
+                            عنوان کتاب
+                        </th>
+
+                        <th style="width:150px">
+                            عملیات
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for book in category.books.all %}
+
+                        <tr>
+
+                            <td>
+
+                                {{ forloop.counter }}
+
+                            </td>
+
+                            <td>
+
+                                {{ book.title }}
+
+                            </td>
+
+                            <td>
+
+                                <a
+                                    href="{% url 'book-detail' book.pk %}"
+                                    class="btn btn-sm btn-outline-primary">
+
+                                    جزئیات
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td colspan="3" class="text-center">
+
+                                کتابی ثبت نشده است.
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            <div class="mt-4">
+
+                <a
+                    href="{% url 'category-list' %}"
+                    class="btn btn-secondary">
+
+                    بازگشت
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

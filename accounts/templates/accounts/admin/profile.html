@@ -1,0 +1,189 @@
+{% extends "shared/_admin_layout.html" %}
+{% block sidebar %}
+
+    {% include "shared/_admin_sidebar.html" %}
+
+{% endblock %}
+
+{% block title %}
+پروفایل من
+{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header">
+
+        <h4 class="mb-0">
+            پروفایل من
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row mb-3">
+
+            <div class="col-md-6">
+
+                <strong>نام</strong>
+
+                <br>
+
+                {{ request.user.first_name }}
+
+            </div>
+
+            <div class="col-md-6">
+
+                <strong>نام خانوادگی</strong>
+
+                <br>
+
+                {{ request.user.last_name }}
+
+            </div>
+
+        </div>
+
+        <div class="row mb-3">
+
+            <div class="col-md-6">
+
+                <strong>نام کاربری</strong>
+
+                <br>
+
+                {{ request.user.username }}
+
+            </div>
+
+            <div class="col-md-6">
+
+                <strong>ایمیل</strong>
+
+                <br>
+
+                {{ request.user.email }}
+
+            </div>
+
+        </div>
+
+        <div class="row mb-4">
+
+            <div class="col-md-6">
+
+                <strong>تاریخ عضویت</strong>
+
+                <br>
+
+                {{ request.user.date_joined|date:"Y/m/d" }}
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="row text-center">
+
+            <div class="col-md-4">
+
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <h5>
+
+                            {{ total_borrows }}
+
+                        </h5>
+
+                        <p>
+
+                            کل امانت‌ها
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <h5>
+
+                            {{ active_borrows }}
+
+                        </h5>
+
+                        <p>
+
+                            امانت فعال
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <h5>
+
+                            {{ pending_borrows }}
+
+                        </h5>
+
+                        <p>
+
+                            در انتظار تأیید
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="d-flex gap-2">
+
+<a href="{% url 'profile-edit' %}"
+   class="btn btn-warning">
+
+    ویرایش اطلاعات
+
+</a>
+
+          <a href="{% url 'change-password' %}"
+   class="btn btn-primary">
+
+    تغییر رمز عبور
+
+</a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,290 @@
+{% extends "shared/_admin_layout.html" %}
+
+{% block title %}
+داشبورد مدیریت
+{% endblock %}
+
+{% block sidebar %}
+
+    {% include "shared/_admin_sidebar.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+
+        <h2 class="fw-bold">
+
+            داشبورد مدیریت
+
+        </h2>
+
+        <p class="text-muted mb-0">
+
+            نمای کلی وضعیت سیستم مدیریت کتابخانه
+
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        <!-- کل کتاب‌ها -->
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-muted">
+
+                        کل کتاب‌ها
+
+                    </h6>
+
+                    <h1 class="fw-bold text-primary">
+
+                        {{ books_count }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- کتاب‌های موجود -->
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-muted">
+
+                        کتاب‌های موجود
+
+                    </h6>
+
+                    <h1 class="fw-bold text-success">
+
+                        {{ available_books }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- کتاب‌های امانت داده شده -->
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-muted">
+
+                        کتاب‌های امانت داده شده
+
+                    </h6>
+
+                    <h1 class="fw-bold text-danger">
+
+                        {{ borrowed_books }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- درخواست‌های در انتظار -->
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-muted">
+
+                        درخواست‌های در انتظار
+
+                    </h6>
+
+                    <h1 class="fw-bold text-warning">
+
+                        {{ pending_requests }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row g-4 mt-1">
+
+        <!-- نویسندگان -->
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-muted">
+
+                        نویسندگان
+
+                    </h6>
+
+                    <h1 class="fw-bold text-info">
+
+                        {{ authors_count }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ناشران -->
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-muted">
+
+                        ناشران
+
+                    </h6>
+
+                    <h1 class="fw-bold text-secondary">
+
+                        {{ publishers_count }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- دسته‌بندی‌ها -->
+        <div class="col-lg-4 col-md-12">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-muted">
+
+                        دسته‌بندی‌ها
+
+                    </h6>
+
+                    <h1 class="fw-bold text-dark">
+
+                        {{ categories_count }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+<div class="mt-5">
+
+    <h4 class="fw-bold mb-4">
+
+        دسترسی سریع
+
+    </h4>
+
+    <div class="row g-3">
+
+        <div class="col-lg-4 col-md-6">
+
+            <a href="{% url 'book-create' %}" class="btn btn-primary w-100 py-3">
+
+                ➕ افزودن کتاب
+
+            </a>
+
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+
+            <a href="{% url 'author-create' %}" class="btn btn-success w-100 py-3">
+
+                ✍️ افزودن نویسنده
+
+            </a>
+
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+
+            <a href="{% url 'publisher-create' %}" class="btn btn-secondary w-100 py-3">
+
+                🏢 افزودن ناشر
+
+            </a>
+
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+
+            <a href="{% url 'category-create' %}" class="btn btn-warning w-100 py-3">
+
+                🗂️ افزودن دسته‌بندی
+
+            </a>
+
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+
+            <a href="{% url 'borrow-list' %}" class="btn btn-info w-100 py-3">
+
+                📚 مدیریت امانت‌ها
+
+            </a>
+
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+
+            <a href="{% url 'user-list' %}" class="btn btn-dark w-100 py-3">
+
+                👥 مدیریت کاربران
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+    </div>
+
+</div>
+
+{% endblock %}

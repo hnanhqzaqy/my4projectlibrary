@@ -1,0 +1,111 @@
+{% extends "shared/_layout.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h3>دسته‌بندی‌ها</h3>
+
+        <a href="{% url 'category-create' %}" class="btn btn-success">
+            افزودن دسته‌بندی
+        </a>
+
+    </div>
+
+    <form method="get" class="mb-3">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <input
+                        type="text"
+                        name="search"
+                        class="form-control"
+                        placeholder="جستجوی دسته‌بندی..."
+                        value="{{ request.GET.search }}"
+                >
+
+            </div>
+
+            <div class="col-md-2">
+
+                <button class="btn btn-primary w-100">
+
+                    جستجو
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+
+        <tr>
+
+            <th>ردیف</th>
+            <th>نام</th>
+            <th>عملیات</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for category in categories %}
+
+            <tr>
+
+                <td>{{ category.id }}</td>
+
+                <td><a href="{% url 'category-detail' category.pk %}" class="text-dark fw-semibold text-decoration-none">{{ category.name }}</a></td>
+
+                <td>
+
+                    <a
+                            href="{% url 'category-update' category.id %}"
+                            class="btn btn-warning btn-sm"
+                    >
+                        ویرایش
+                    </a>
+
+                    <a
+                            href="{% url 'category-delete' category.id %}"
+                            class="btn btn-danger btn-sm"
+                    >
+                        حذف
+                    </a>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="3">
+
+                    هیچ دسته‌بندی ثبت نشده است.
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

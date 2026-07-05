@@ -1,0 +1,75 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}
+داشبورد
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    داشبورد سیستم مدیریت کتابخانه
+</h2>
+
+<div class="row">
+
+    <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5>کتاب‌ها</h5>
+                <h2>{{ books_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5>دسته‌بندی‌ها</h5>
+                <h2>{{ categories_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5>نویسندگان</h5>
+                <h2>{{ authors_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5>ناشران</h5>
+                <h2>{{ publishers_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr>
+
+<div class="d-flex gap-2 flex-wrap">
+
+    <a href="{% url 'book-list' %}" class="btn btn-primary">
+        مدیریت کتاب‌ها
+    </a>
+
+    <a href="{% url 'category-list' %}" class="btn btn-success">
+        مدیریت دسته‌بندی‌ها
+    </a>
+
+    <a href="{% url 'author-list' %}" class="btn btn-warning">
+        مدیریت نویسندگان
+    </a>
+
+    <a href="{% url 'publisher-list' %}" class="btn btn-info">
+        مدیریت ناشران
+    </a>
+
+</div>
+
+{% endblock %}
