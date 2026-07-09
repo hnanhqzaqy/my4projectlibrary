@@ -20,6 +20,13 @@
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.rtl.min.css"
             rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
 <body class="bg-light">
@@ -28,48 +35,26 @@
 
     <div class="container">
 
-<a class="navbar-brand fw-bold" href="{% url 'book-list' %}">
+<a class="navbar-brand fw-bold"
+   href="{% if request.user.is_authenticated and request.user.is_superuser %}{% url 'dashboard' %}{% else %}{% url 'book-list' %}{% endif %}">
     📚 Library Management
 </a>
 
        <div class="navbar-nav ms-auto align-items-center">
-{% if request.user.is_authenticated %}
 
+{% if not request.user.is_superuser %}
 <a class="nav-link" href="{% url 'book-list' %}">
     کتاب‌ها
 </a>
+{% endif %}
+
+{% if request.user.is_authenticated %}
 
 {% if request.user.is_superuser %}
-
-<a class="nav-link" href="{% url 'category-list' %}">
-    دسته‌بندی‌ها
-</a>
-
-<a class="nav-link" href="{% url 'author-list' %}">
-    نویسندگان
-</a>
-
-<a class="nav-link" href="{% url 'publisher-list' %}">
-    ناشران
-</a>
-
-<a class="nav-link" href="{% url 'user-list' %}">
-    کاربران
-</a>
-
-<a class="nav-link" href="{% url 'borrow-list' %}">
-    امانت‌ها
-</a>
-
 <a class="nav-link" href="{% url 'dashboard' %}">
     داشبورد
 </a>
-
 {% endif %}
-
-{% endif %}
-{% if request.user.is_authenticated %}
-
 <div class="dropdown ms-2">
 
     <a

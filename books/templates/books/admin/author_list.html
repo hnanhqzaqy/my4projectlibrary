@@ -17,7 +17,6 @@
         <a href="{% url 'author-create' %}" class="btn btn-success">
             افزودن نویسنده
         </a>
-
     </div>
 
     <form method="get" class="mb-3">
@@ -54,7 +53,6 @@
 
         <tr>
 
-            <th>ردیف</th>
             <th>نام نویسنده</th>
             <th>عملیات</th>
 
@@ -67,8 +65,6 @@
         {% for author in authors %}
 
             <tr>
-
-                <td>{{ author.id }}</td>
                 <td><a href="{% url 'author-detail' author.pk %}" class="text-dark fw-semibold text-decoration-none">{{ author.full_name }}</a></td>
 
                 <td>
@@ -91,7 +87,7 @@
 
             <tr>
 
-                <td colspan="3">
+                <td colspan="2">
                     هیچ نویسنده‌ای ثبت نشده است.
                 </td>
 

@@ -1,46 +1,50 @@
 {% extends "shared/_admin_layout.html" %}
 
 {% block sidebar %}
-
     {% include "shared/_admin_sidebar.html" %}
-
+{% endblock %}
+{% block title %}
+بایگانی کتاب
 {% endblock %}
 
 {% block content %}
 
 <div class="container mt-4">
 
-    <h3>حذف کتاب</h3>
+    <div class="card shadow-sm border-0">
 
-    <hr>
+        <div class="card-body text-center">
 
-    <p>
+            <h4 class="mb-4">
+                آیا می‌خواهید این کتاب را بایگانی کنید؟
+            </h4>
 
-        آیا از حذف کتاب
+            <p class="text-muted">
+                کتاب از لیست کتاب‌های فعال خارج می‌شود اما بعداً قابل بازیابی خواهد بود.
+            </p>
 
-        <strong>{{ object.title }}</strong>
+            <form method="post">
 
-        مطمئن هستید؟
+                {% csrf_token %}
 
-    </p>
+                <button type="submit" class="btn btn-info">
 
-    <form method="post">
+                    بایگانی
 
-        {% csrf_token %}
+                </button>
 
-        <button class="btn btn-danger">
+                <a href="{% url 'admin-book-list' %}"
+                   class="btn btn-secondary">
 
-            حذف
+                    انصراف
 
-        </button>
+                </a>
 
-        <a href="{% url 'book-list' %}" class="btn btn-secondary">
+            </form>
 
-            انصراف
+        </div>
 
-        </a>
-
-    </form>
+    </div>
 
 </div>
 

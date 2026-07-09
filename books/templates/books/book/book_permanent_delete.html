@@ -1,0 +1,75 @@
+{% extends "shared/_admin_layout.html" %}
+
+{% block sidebar %}
+    {% include "shared/_admin_sidebar.html" %}
+{% endblock %}
+
+{% block title %}
+حذف دائمی کتاب
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card border-danger shadow">
+
+        <div class="card-header bg-danger text-white">
+
+            <h4 class="mb-0">
+                حذف دائمی کتاب
+            </h4>
+
+        </div>
+
+        <div class="card-body text-center">
+
+            <p class="fs-5">
+
+                آیا از حذف دائمی کتاب
+
+                <strong>
+
+                    {{ object.title }}
+
+                </strong>
+
+                مطمئن هستید؟
+
+            </p>
+
+            <p class="text-danger fw-bold">
+
+                این عملیات غیرقابل بازگشت است.
+
+            </p>
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="btn btn-danger">
+
+                    🗑 حذف دائمی
+
+                </button>
+
+                <a
+                    href="{% url 'admin-book-list' %}"
+                    class="btn btn-secondary">
+
+                    انصراف
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

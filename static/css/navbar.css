@@ -1,3 +1,23 @@
+html,
+body{
+    font-family: "Vazirmatn", sans-serif;
+}
+button,
+input,
+textarea,
+select,
+table,
+.card,
+.btn,
+.dropdown-menu,
+.list-group-item{
+    font-family: inherit;
+}
+
+
+
+
+
 .navbar-brand{
     letter-spacing: .5px;
 }
@@ -33,3 +53,19 @@
 .book-link:hover{
     text-decoration: underline !important;
 }
+
+.nav-link{
+    color:#bdbdbd !important;
+    transition:.2s;
+}
+
+.nav-link:hover{
+    color:white !important;
+}
+
+.active-nav{
+    color:white !important;
+    font-weight:bold;
+}
+
+

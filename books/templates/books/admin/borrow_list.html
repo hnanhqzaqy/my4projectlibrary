@@ -11,30 +11,59 @@
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="card shadow-sm">
 
-    <h3>
-        لیست امانت‌ها
-    </h3>
+    <div class="card-header">
 
-    <a
-        href="{% url 'borrow-create' %}"
-        class="btn btn-success">
+        <div class="d-flex justify-content-between align-items-center">
 
-        ثبت امانت
+            <h4 class="mb-0">
+                لیست امانت‌ها
+            </h4>
 
-    </a>
+        </div>
 
-</div>
+    </div>
 
-<div class="alert alert-info">
+    <div class="card-body">
 
-    تعداد کتاب‌های امانت داده شده:
-    <strong>
+        <div class="row mb-4">
 
-        {{ active_borrows_count }}
+            <div class="col-md-4">
+                <div class="card border-warning shadow-sm">
+                    <div class="card-body text-center">
+                        <h6 class="text-warning">
+                            🟡 در انتظار
+                        </h6>
+                        <h2>{{ pending_count }}</h2>
+                    </div>
+                </div>
+            </div>
 
-    </strong>
+            <div class="col-md-4">
+                <div class="card border-success shadow-sm">
+                    <div class="card-body text-center">
+                        <h6 class="text-success">
+                            🟢 تأیید شده
+                        </h6>
+                        <h2>{{ approved_count }}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card border-primary shadow-sm">
+                    <div class="card-body text-center">
+                        <h6 class="text-primary">
+                            🔵 تحویل داده شده
+                        </h6>
+                        <h2>{{ returned_count }}</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 </div>
 
@@ -76,7 +105,17 @@
 
             <td>{{ forloop.counter }}</td>
 
-            <td>{{ borrow.book }}</td>
+<td>
+
+    {% if borrow.book %}
+        {{ borrow.book }}
+{% else %}
+
+    {{ borrow.book_title }}
+
+{% endif %}
+
+</td>
 
             <td>{{ borrow.user }}</td>
 
@@ -137,7 +176,22 @@
             {% if request.user.is_superuser %}
 <td>
 
-    {% if borrow.status == "pending" %}
+  {% if borrow.status == "pending" %}
+
+    {% if not borrow.book %}
+
+        <span class="badge bg-danger">
+            کتاب حذف شده
+        </span>
+
+    {% elif not borrow.book.is_active %}
+
+        <span class="badge"
+              style="background-color:#0aa2c0; color:white;">
+            کتاب بایگانی شده
+        </span>
+
+    {% else %}
 
         <a
             href="{% url 'borrow-approve' borrow.pk %}"
@@ -147,30 +201,32 @@
 
         </a>
 
-    {% elif borrow.status == "approved" %}
+    {% endif %}
 
-        <form
-            action="{% url 'borrow-return' borrow.pk %}"
-            method="post"
-            class="d-inline">
+{% elif borrow.status == "approved" %}
 
-            {% csrf_token %}
+    <form
+        action="{% url 'borrow-return' borrow.pk %}"
+        method="post"
+        class="d-inline">
 
-            <button
-                type="submit"
-                class="btn btn-success btn-sm">
+        {% csrf_token %}
 
-                بازگرداندن
+        <button
+            type="submit"
+            class="btn btn-success btn-sm">
 
-            </button>
+            ثبت تحویل
 
-        </form>
+        </button>
+
+    </form>
 
     {% elif borrow.status == "returned" %}
 
         <span class="badge bg-success">
 
-            تحویل شده
+            تحویل داده شده
 
         </span>
 

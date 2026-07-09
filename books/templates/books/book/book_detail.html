@@ -4,7 +4,6 @@
 {{ book.title }}
 {% endblock %}
 
-
 {% block content %}
 
 <div class="container mt-4">
@@ -15,84 +14,62 @@
 
             <div class="row">
 
-                <!-- تصویر کتاب -->
+                {% if book.image %}
 
-                <div class="col-md-4 text-center">
+                    <!-- تصویر کتاب -->
 
-                    {% if book.image %}
+                    <div class="col-md-4 text-center">
 
                         <img
                             src="{{ book.image.url }}"
                             class="img-fluid rounded shadow"
                             alt="{{ book.title }}">
 
-                    {% else %}
+                    </div>
 
-                        <div class="border rounded p-5 bg-light">
+                    <div class="col-md-8">
 
-                            تصویر کتاب موجود نیست
+                {% else %}
 
-                        </div>
+                    <div class="col-md-12">
 
-                    {% endif %}
+                {% endif %}
 
-                </div>
+                        <h2 class="mb-3">
 
-                <!-- اطلاعات -->
+                            {{ book.title }}
 
-                <div class="col-md-8">
+                        </h2>
 
-                    <h2 class="mb-3">
+                        <hr>
 
-                        {{ book.title }}
+                        {% if book.summary %}
 
-                    </h2>
+                            <h5>خلاصه کتاب</h5>
 
-                    <hr>
+                            <p>
 
-                    <h5>خلاصه کتاب</h5>
+                                {{ book.summary }}
 
-                    {% if book.summary %}
+                            </p>
 
-                        <p>
+                            <hr>
 
-                            {{ book.summary }}
+                        {% endif %}
 
-                        </p>
+                        {% if book.description %}
 
-                    {% else %}
+                            <h5>توضیحات</h5>
 
-                        <p class="text-muted">
+                            <p>
 
-                            خلاصه‌ای برای این کتاب ثبت نشده است.
+                                {{ book.description|linebreaks }}
 
-                        </p>
+                            </p>
 
-                    {% endif %}
+                        {% endif %}
 
-                    <hr>
-
-                    <h5>توضیحات</h5>
-
-                    {% if book.description %}
-
-                        <p>
-
-                            {{ book.description }}
-
-                        </p>
-
-                    {% else %}
-
-                        <p class="text-muted">
-
-                            توضیحی ثبت نشده است.
-
-                        </p>
-
-                    {% endif %}
-
-                </div>
+                    </div>
 
             </div>
 
@@ -130,13 +107,17 @@
 
                 <div class="col-md-6">
 
-                    <p>
+                    {% if book.language %}
 
-                        <strong>زبان:</strong>
+                        <p>
 
-                        {{ book.language }}
+                            <strong>زبان:</strong>
 
-                    </p>
+                            {{ book.language }}
+
+                        </p>
+
+                    {% endif %}
 
                     <p>
 

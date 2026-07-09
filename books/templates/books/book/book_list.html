@@ -44,7 +44,7 @@
 
         <tr>
 
-            <th>ردیف</th>
+
             <th>عنوان</th>
             <th>دسته‌بندی</th>
             <th>نویسنده</th>
@@ -62,8 +62,6 @@
         {% for book in books %}
 
             <tr>
-
-                <td>{{ book.id }}</td>
                <td><a href="{% url 'book-detail' book.pk %}" class="book-link text-dark fw-bold text-decoration-none">{{ book.title }}</a></td>
                 <td>{{ book.category.name }}</td>
                 <td>{{ book.author.full_name }}</td>
@@ -84,7 +82,7 @@
 
             <tr>
 
-                <td colspan="8">
+                <td colspan="7">
 
                     هیچ کتابی ثبت نشده است.
 

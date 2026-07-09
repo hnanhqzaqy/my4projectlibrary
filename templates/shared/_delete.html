@@ -1,17 +1,65 @@
+{% if delete_message %}
+
+<div class="alert alert-danger text-center">
+
+    {{ delete_message }}
+
+</div>
+
+{% else %}
+
+<div class="alert alert-danger text-center">
+
+    {% if object.username %}
+
+        آیا از حذف کاربر
+        <strong>{{ object.username }}</strong>
+        مطمئن هستید؟
+
+    {% elif object.title %}
+
+        آیا از حذف کتاب
+        <strong>{{ object.title }}</strong>
+        مطمئن هستید؟
+
+    {% elif object.name %}
+
+        آیا از حذف
+        <strong>{{ object.name }}</strong>
+        مطمئن هستید؟
+
+    {% else %}
+
+        آیا از حذف این مورد مطمئن هستید؟
+
+    {% endif %}
+
+</div>
+
+{% endif %}
+
 <form method="post">
 
     {% csrf_token %}
 
-    <p>
-        آیا از حذف این مورد مطمئن هستید؟
-    </p>
+    <div class="mt-4 d-flex justify-content-center gap-2">
 
-    <button type="submit" class="btn btn-danger">
-        حذف
-    </button>
+        <button
+                type="submit"
+                class="btn btn-danger">
 
-    <a href="{{ cancel_url }}" class="btn btn-secondary">
-        انصراف
-    </a>
+            تأیید
+
+        </button>
+
+        <a
+                href="{{ cancel_url }}"
+                class="btn btn-secondary">
+
+            انصراف
+
+        </a>
+
+    </div>
 
 </form>

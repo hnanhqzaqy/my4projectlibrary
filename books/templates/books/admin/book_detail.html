@@ -31,14 +31,6 @@
                             class="img-fluid rounded shadow"
                             alt="{{ book.title }}">
 
-                    {% else %}
-
-                        <div class="border rounded p-5 bg-light">
-
-                            تصویر کتاب موجود نیست
-
-                        </div>
-
                     {% endif %}
 
                 </div>
@@ -55,9 +47,9 @@
 
                     <hr>
 
-                    <h5>خلاصه کتاب</h5>
-
                     {% if book.summary %}
+
+                        <h5>خلاصه کتاب</h5>
 
                         <p>
 
@@ -65,33 +57,17 @@
 
                         </p>
 
-                    {% else %}
-
-                        <p class="text-muted">
-
-                            خلاصه‌ای برای این کتاب ثبت نشده است.
-
-                        </p>
+                        <hr>
 
                     {% endif %}
 
-                    <hr>
-
-                    <h5>توضیحات</h5>
-
                     {% if book.description %}
+
+                        <h5>توضیحات</h5>
 
                         <p>
 
-                            {{ book.description }}
-
-                        </p>
-
-                    {% else %}
-
-                        <p class="text-muted">
-
-                            توضیحی ثبت نشده است.
+                            {{ book.description|linebreaks }}
 
                         </p>
 
@@ -135,6 +111,8 @@
 
                 <div class="col-md-6">
 
+                    {% if book.language %}
+
                     <p>
 
                         <strong>زبان:</strong>
@@ -142,6 +120,8 @@
                         {{ book.language }}
 
                     </p>
+
+                    {% endif %}
 
                     <p>
 
@@ -182,7 +162,7 @@
             <hr>
 
             <a
-                href="{% url 'book-list' %}"
+                href="{% url 'admin-book-list' %}"
                 class="btn btn-secondary">
 
                 بازگشت به لیست کتاب‌ها

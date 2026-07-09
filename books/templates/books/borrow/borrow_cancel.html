@@ -1,0 +1,17 @@
+{% extends "shared/_layout.html" %}
+
+{% block title %}
+لغو درخواست امانت
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    {% url 'my-borrows' as cancel_url %}
+
+    {% include "shared/_delete.html" with cancel_url=cancel_url %}
+
+</div>
+
+{% endblock %}

@@ -1,7 +1,9 @@
 from django.db import models
 from core.models import BaseModel
 from django.conf import settings
-
+from django.core.validators import MinValueValidator, MaxValueValidator
+ 
+ 
 
 
 class Category(BaseModel):
@@ -80,13 +82,13 @@ class Book(BaseModel):
     )
 
     isbn = models.CharField(
-        max_length=20,
+        max_length=100,
         unique=True,
         verbose_name="ISBN"
     )
 
     publish_year = models.PositiveIntegerField(
-        verbose_name="سال انتشار"
+        verbose_name="سال انتشار",
     )
 
     pages = models.PositiveIntegerField(
@@ -125,6 +127,11 @@ class Book(BaseModel):
         verbose_name="موجود"
     )
 
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name="فعال"
+    )
+    
     class Meta:
         verbose_name = "کتاب"
         verbose_name_plural = "کتاب‌ها"
@@ -147,13 +154,18 @@ class Borrow(BaseModel):
         (STATUS_REJECTED, "رد شده"),
         (STATUS_RETURNED, "تحویل داده شده"),
     )
-
-
     book = models.ForeignKey(
         Book,
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         related_name="borrows",
         verbose_name="کتاب",
+    )
+    book_title = models.CharField(
+    max_length=255,
+    blank=True,
+    verbose_name="عنوان کتاب"
     )
 
     user = models.ForeignKey(

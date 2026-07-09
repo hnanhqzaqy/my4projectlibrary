@@ -17,7 +17,6 @@
         <a href="{% url 'book-create' %}" class="btn btn-success">
             افزودن کتاب
         </a>
-
     </div>
 
     <form method="get" class="mb-3">
@@ -54,13 +53,13 @@
 
         <tr>
 
-            <th>ردیف</th>
             <th>عنوان</th>
             <th>دسته‌بندی</th>
             <th>نویسنده</th>
             <th>ناشر</th>
             <th>سال</th>
             <th>وضعیت</th>
+            <th>وضعیت نمایش</th>
             <th>عملیات</th>
 
         </tr>
@@ -71,9 +70,8 @@
 
         {% for book in books %}
 
-            <tr>
+            <tr {% if not book.is_active %}class="table-secondary"{% endif %}>
 
-                <td>{{ book.id }}</td>
                <td><a href="{% url 'book-detail' book.pk %}" class="book-link text-dark fw-bold text-decoration-none">{{ book.title }}</a></td>
                 <td>{{ book.category.name }}</td>
                 <td>{{ book.author.full_name }}</td>
@@ -87,20 +85,55 @@
                         <span class="badge bg-danger">ناموجود</span>
                     {% endif %}
                 </td>
+<td>
 
-                <td>
+    {% if book.is_active %}
+        <span class="badge bg-success">
+            فعال
+        </span>
+    {% else %}
+        <span class="badge bg-secondary">
+            بایگانی شده
+        </span>
+    {% endif %}
 
-                    <a href="{% url 'book-update' book.id %}"
-                       class="btn btn-warning btn-sm">
-                        ویرایش
-                    </a>
+</td>
+<td>
 
-                    <a href="{% url 'book-delete' book.id %}"
-                       class="btn btn-danger btn-sm">
-                        حذف
-                    </a>
+    {% if book.is_active %}
 
-                </td>
+        <a href="{% url 'book-update' book.id %}"
+           class="btn btn-warning btn-sm">
+            ویرایش
+        </a>
+
+        <a href="{% url 'book-delete' book.id %}"
+           class="btn btn-info btn-sm">
+            📦 بایگانی
+        </a>
+
+    {% else %}
+
+        <form method="post"
+              action="{% url 'book-restore' book.id %}"
+              style="display:inline;">
+
+            {% csrf_token %}
+
+            <button class="btn btn-success btn-sm">
+                ♻ بازیابی
+            </button>
+
+        </form>
+
+        <a href="{% url 'book-permanent-delete' book.id %}"
+           class="btn btn-danger btn-sm">
+            🗑 حذف دائمی
+        </a>
+
+    {% endif %}
+
+</td>
 
             </tr>
 
@@ -108,7 +141,7 @@
 
             <tr>
 
-                <td colspan="8">
+                <td colspan="7">
 
                     هیچ کتابی ثبت نشده است.
 

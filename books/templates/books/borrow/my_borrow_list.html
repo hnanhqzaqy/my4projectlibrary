@@ -9,13 +9,11 @@
 <div class="card shadow-sm">
 
     <div class="card-header">
-<div class="d-flex justify-content-end mb-3">
-        <h4 class="mb-0">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-            امانت‌های من
-
-        </h4>
-
+    <h4 class="mb-0">
+        امانت‌های من
+    </h4>
 
     <a
         href="{% url 'borrow-create' %}"
@@ -72,6 +70,7 @@
                         <th>کتاب</th>
                         <th>تاریخ درخواست</th>
                         <th>وضعیت</th>
+                        <th>عملیات</th>
                     </tr>
 
                 </thead>
@@ -81,12 +80,29 @@
                 {% for borrow in borrows %}
 
                     <tr>
+<td>
 
-                        <td>
+{% if borrow.book %}
 
-                            {{ borrow.book.title }}
+    {{ borrow.book.title }}
 
-                        </td>
+    {% if not borrow.book.is_active %}
+<span class="badge text-white" style="background-color:#0aa2c0;">
+    بایگانی شده
+</span>
+    {% endif %}
+
+{% else %}
+
+    {{ borrow.book_title }}
+
+    <span class="badge bg-danger">
+        حذف شده
+    </span>
+
+{% endif %}
+
+</td>
 
                         <td>
 
@@ -127,7 +143,27 @@
         </span>
 
     {% endif %}
+<td>
 
+    {% if borrow.status == borrow.STATUS_PENDING %}
+
+        <a
+            href="{% url 'borrow-cancel' borrow.pk %}"
+            class="btn btn-outline-danger btn-sm">
+
+            ❌ لغو درخواست
+
+        </a>
+
+    {% else %}
+
+        <span class="text-muted">
+            —
+        </span>
+
+    {% endif %}
+
+</td>
 </td>
 
                     </tr>

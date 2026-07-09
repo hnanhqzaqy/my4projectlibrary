@@ -43,11 +43,15 @@ class UserListView(LoginRequiredMixin,ListView):
                 | Q(email__icontains=search)
             )
         return queryset
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["sidebar"] = "user"
+        return context
 
 
-class AdminUserListView(
-    SuperUserRequiredMixin,
-    ListView,):
+
+
+class AdminUserListView(SuperUserRequiredMixin,ListView,):
     model = CustomUser
     template_name = "accounts/admin/user_list.html"
     context_object_name = "users"
@@ -71,22 +75,29 @@ class AdminUserListView(
 
 
 
- 
-    
-    
     
 class UserDeleteView(SuperUserRequiredMixin,LoginRequiredMixin,DeleteView):
     model = CustomUser
     template_name = "accounts/user_delete.html"
     success_url = reverse_lazy("user-list")
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if Borrow.objects.filter(
+            user=self.object,
+            status=Borrow.STATUS_APPROVED,
+        ).exists():
+            messages.error(request,"این کاربر در حال حاضر کتاب امانت گرفته است و تا زمان بازگرداندن کتاب امکان حذف وجود ندارد.")
+            return redirect("user-list")
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        messages.success(
-            self.request,
-            "کاربر با موفقیت حذف شد."
-        )
+        Borrow.objects.filter(user=self.object).delete()
+        messages.success(self.request,"کاربر با موفقیت حذف شد.")
         return super().form_valid(form)
-    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["sidebar"] = "user"
+        return context
     
     
     
@@ -95,22 +106,17 @@ class UserLoginView(LoginView):
     template_name = "accounts/login.html"
     authentication_form = LoginForm
     redirect_authenticated_user = True
-    
+
     def get_success_url(self):
-        user = self.request.user
-        if user.is_superuser:
-            return reverse_lazy("dashboard")
-        return reverse_lazy("book-list")
+        return reverse_lazy("home")
+
 
 
 class UserLogoutView(LogoutView):
     """
     خروج کاربران
     """
-
-    next_page = "login"
-    
-    
+    next_page = "home"
     
     
 
@@ -140,9 +146,8 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         
     
     
-class ProfileUpdateView(
-    LoginRequiredMixin,
-    UpdateView,):
+    
+class ProfileUpdateView(LoginRequiredMixin,UpdateView,):
     form_class = ProfileUpdateForm
     template_name = "accounts/profile_edit.html"
     success_url = reverse_lazy("profile")
@@ -157,9 +162,7 @@ class ProfileUpdateView(
         
     
     
-class UserPasswordChangeView(
-    LoginRequiredMixin,
-    PasswordChangeView,):
+class UserPasswordChangeView(LoginRequiredMixin,PasswordChangeView,):
     template_name = "accounts/change_password.html"
     success_url = reverse_lazy("profile")
 
@@ -179,7 +182,7 @@ class UserPasswordChangeView(
 class RegisterView(CreateView):
     form_class = RegisterForm
     template_name = "accounts/register.html"
-    success_url = reverse_lazy("book-list")
+    success_url = reverse_lazy("home")
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:

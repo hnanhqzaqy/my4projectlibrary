@@ -134,82 +134,93 @@
 
     </div>
 
-    <div class="row g-4 mt-1">
+<div class="row g-4 mt-1">
 
-        <!-- نویسندگان -->
-        <div class="col-lg-4 col-md-6">
+    <!-- کاربران ثبت‌نام‌شده -->
+    <div class="col-lg-3 col-md-6">
 
-            <div class="card border-0 shadow-sm h-100">
+        <div class="card border-0 shadow-sm h-100">
 
-                <div class="card-body text-center">
+            <div class="card-body text-center">
 
-                    <h6 class="text-muted">
+                <h6 class="text-muted">
+                    کاربران ثبت‌نام‌شده
+                </h6>
 
-                        نویسندگان
-
-                    </h6>
-
-                    <h1 class="fw-bold text-info">
-
-                        {{ authors_count }}
-
-                    </h1>
-
-                </div>
+                <h1 class="fw-bold" style="color:#e83e8c;">
+                    {{ users_count }}
+                </h1>
 
             </div>
 
         </div>
 
-        <!-- ناشران -->
-        <div class="col-lg-4 col-md-6">
+    </div>
 
-            <div class="card border-0 shadow-sm h-100">
+    <!-- دسته‌بندی‌ها -->
+    <div class="col-lg-3 col-md-6">
 
-                <div class="card-body text-center">
+        <div class="card border-0 shadow-sm h-100">
 
-                    <h6 class="text-muted">
+            <div class="card-body text-center">
 
-                        ناشران
+                <h6 class="text-muted">
+                    دسته‌بندی‌ها
+                </h6>
 
-                    </h6>
-
-                    <h1 class="fw-bold text-secondary">
-
-                        {{ publishers_count }}
-
-                    </h1>
-
-                </div>
+                <h1 class="fw-bold text-dark">
+                    {{ categories_count }}
+                </h1>
 
             </div>
 
         </div>
 
-        <!-- دسته‌بندی‌ها -->
-        <div class="col-lg-4 col-md-12">
+    </div>
 
-            <div class="card border-0 shadow-sm h-100">
+    <!-- نویسندگان -->
+    <div class="col-lg-3 col-md-6">
 
-                <div class="card-body text-center">
+        <div class="card border-0 shadow-sm h-100">
 
-                    <h6 class="text-muted">
+            <div class="card-body text-center">
 
-                        دسته‌بندی‌ها
+                <h6 class="text-muted">
+                    نویسندگان
+                </h6>
 
-                    </h6>
-
-                    <h1 class="fw-bold text-dark">
-
-                        {{ categories_count }}
-
-                    </h1>
-
-                </div>
+                <h1 class="fw-bold text-info">
+                    {{ authors_count }}
+                </h1>
 
             </div>
 
         </div>
+
+    </div>
+
+    <!-- ناشران -->
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-body text-center">
+
+                <h6 class="text-muted">
+                    ناشران
+                </h6>
+
+                <h1 class="fw-bold text-secondary">
+                    {{ publishers_count }}
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 <div class="mt-5">
 
     <h4 class="fw-bold mb-4">
@@ -220,7 +231,7 @@
 
     <div class="row g-3">
 
-        <div class="col-lg-4 col-md-6">
+        <div class="col-lg-3 col-md-6">
 
             <a href="{% url 'book-create' %}" class="btn btn-primary w-100 py-3">
 
@@ -230,7 +241,7 @@
 
         </div>
 
-        <div class="col-lg-4 col-md-6">
+        <div class="col-lg-3 col-md-6">
 
             <a href="{% url 'author-create' %}" class="btn btn-success w-100 py-3">
 
@@ -240,7 +251,7 @@
 
         </div>
 
-        <div class="col-lg-4 col-md-6">
+        <div class="col-lg-3 col-md-6">
 
             <a href="{% url 'publisher-create' %}" class="btn btn-secondary w-100 py-3">
 
@@ -250,31 +261,11 @@
 
         </div>
 
-        <div class="col-lg-4 col-md-6">
+        <div class="col-lg-3 col-md-6">
 
             <a href="{% url 'category-create' %}" class="btn btn-warning w-100 py-3">
 
                 🗂️ افزودن دسته‌بندی
-
-            </a>
-
-        </div>
-
-        <div class="col-lg-4 col-md-6">
-
-            <a href="{% url 'borrow-list' %}" class="btn btn-info w-100 py-3">
-
-                📚 مدیریت امانت‌ها
-
-            </a>
-
-        </div>
-
-        <div class="col-lg-4 col-md-6">
-
-            <a href="{% url 'user-list' %}" class="btn btn-dark w-100 py-3">
-
-                👥 مدیریت کاربران
 
             </a>
 

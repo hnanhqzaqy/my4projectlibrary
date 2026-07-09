@@ -56,7 +56,6 @@
 
         <tr>
 
-            <th>ردیف</th>
             <th>نام ناشر</th>
             <th>عملیات</th>
 
@@ -69,8 +68,6 @@
         {% for publisher in publishers %}
 
             <tr>
-
-                <td>{{ publisher.id }}</td>
 
                 <td><a href="{% url 'publisher-detail' publisher.pk %}" class="text-dark fw-semibold text-decoration-none">{{ publisher.name }}</a></td>
 
@@ -98,7 +95,7 @@
 
             <tr>
 
-                <td colspan="3">
+                <td colspan="2">
 
                     هیچ ناشری ثبت نشده است.
 

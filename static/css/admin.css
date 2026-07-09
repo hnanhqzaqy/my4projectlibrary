@@ -1,61 +1,55 @@
+html,
 body{
-
-    background:#f5f6fa;
-
+    font-family: "Vazirmatn", sans-serif;
 }
+button,
+input,
+textarea,
+select,
+table,
+.card,
+.btn,
+.dropdown-menu,
+.list-group-item{
+    font-family: inherit;
+}
+
+
+
+
+
+body{
+    background:#f5f6fa;
+}
+
 
 .sidebar{
 
     background:#212529;
-
     min-height:100vh;
 
 }
 
+
 .sidebar .list-group-item{
 
     background:transparent;
-
     color:white;
-
     border:none;
-
-    border-radius:0;
-
     padding:14px 20px;
 
-    transition:.25s;
-
 }
 
-.sidebar .list-group-item:hover{
-
-    background:#0d6efd;
-
-    color:white;
-
-}
-
-.sidebar h4{
-
-    font-weight:bold;
-
-    margin-top:20px;
-
-}
 
 .sidebar .list-group-item.active{
 
     background:#0d6efd;
-
     color:white;
-
     font-weight:bold;
 
 }
 
-.sidebar .list-group-item.active:hover{
 
-    background:#0b5ed7;
-
+textarea.form-control{
+    resize: none;
 }

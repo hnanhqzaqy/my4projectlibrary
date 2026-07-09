@@ -5,11 +5,15 @@
 {% endblock %}
 
 {% block content %}
-
-<h2 class="mb-4">
-    داشبورد سیستم مدیریت کتابخانه
+<h2 class="fw-bold">
+    📚 سیستم مدیریت کتابخانه
 </h2>
 
+<p class="lead text-muted">
+
+    به کتابخانه خوش آمدید 🌹
+
+</p>
 <div class="row">
 
     <div class="col-md-3 mb-3">
@@ -30,45 +34,92 @@
         </div>
     </div>
 
-    <div class="col-md-3 mb-3">
-        <div class="card text-center shadow-sm">
-            <div class="card-body">
-                <h5>نویسندگان</h5>
-                <h2>{{ authors_count }}</h2>
-            </div>
+<div class="col-md-3 mb-3">
+    <div class="card text-center shadow-sm">
+        <div class="card-body">
+            <h5>کتاب‌های امانت گرفته شده</h5>
+            <h2>{{ borrows_count }}</h2>
         </div>
     </div>
-
-    <div class="col-md-3 mb-3">
-        <div class="card text-center shadow-sm">
-            <div class="card-body">
-                <h5>ناشران</h5>
-                <h2>{{ publishers_count }}</h2>
-            </div>
-        </div>
-    </div>
-
 </div>
 
+<div class="col-md-3 mb-3">
+    <div class="card text-center shadow-sm">
+        <div class="card-body">
+            <h5>کاربران ثبت‌نام‌شده</h5>
+            <h2>{{ users_count }}</h2>
+        </div>
+    </div>
+</div>
+</div>
 <hr>
+
+
+{% if not request.user.is_superuser %}
+<div class="alert alert-warning text-center mt-4 mb-3">
+    <strong>بخش مدیریت</strong><br>
+    امکانات زیر فقط برای مدیران سیستم در دسترس است.
+</div>
+{% endif %}
+
 
 <div class="d-flex gap-2 flex-wrap">
 
-    <a href="{% url 'book-list' %}" class="btn btn-primary">
-        مدیریت کتاب‌ها
-    </a>
+{% if request.user.is_superuser %}
+<a href="{% url 'admin-book-list' %}" class="btn btn-primary">
+    مدیریت کتاب‌ها
+</a>
+{% else %}
+<button class="btn btn-secondary" disabled>
+    مدیریت کتاب‌ها
+</button>
+{% endif %}
 
-    <a href="{% url 'category-list' %}" class="btn btn-success">
-        مدیریت دسته‌بندی‌ها
-    </a>
 
-    <a href="{% url 'author-list' %}" class="btn btn-warning">
-        مدیریت نویسندگان
-    </a>
+{% if request.user.is_superuser %}
+<a href="{% url 'category-list' %}" class="btn btn-success">
+    مدیریت دسته‌بندی‌ها
+</a>
+{% else %}
+<button class="btn btn-secondary" disabled>
+    مدیریت دسته‌بندی‌ها
+</button>
+{% endif %}
 
-    <a href="{% url 'publisher-list' %}" class="btn btn-info">
-        مدیریت ناشران
-    </a>
+
+{% if request.user.is_superuser %}
+<a href="{% url 'author-list' %}" class="btn btn-info">
+    مدیریت نویسندگان
+</a>
+{% else %}
+<button class="btn btn-secondary" disabled>
+    مدیریت نویسندگان
+</button>
+{% endif %}
+
+
+{% if request.user.is_superuser %}
+<a href="{% url 'publisher-list' %}" class="btn btn-warning">
+    مدیریت ناشران
+</a>
+{% else %}
+<button class="btn btn-secondary" disabled>
+    مدیریت ناشران
+</button>
+{% endif %}
+
+
+{% if request.user.is_superuser %}
+<a href="{% url 'user-list' %}"  class="btn "
+style="background-color:#9CCC65; color:black;">
+    مدیریت کاربران
+</a>
+{% else %}
+<button class="btn btn-secondary" disabled>
+    مدیریت کاربران
+</button>
+{% endif %}
+
 
 </div>
 

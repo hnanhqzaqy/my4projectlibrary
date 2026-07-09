@@ -1,7 +1,7 @@
 {% extends "shared/_layout.html" %}
 
 {% block title %}
-امانت‌ها
+امانت‌های من
 {% endblock %}
 
 {% block content %}
@@ -9,13 +9,11 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
 
     <h3>
-        لیست امانت‌ها
+        امانت‌های من
     </h3>
 
-
-    <a
-        href="{% url 'borrow-create' %}"
-        class="btn btn-success">
+    <a href="{% url 'borrow-create' %}"
+       class="btn btn-success">
 
         📚 درخواست امانت
 
@@ -32,16 +30,10 @@
             <div class="card-body text-center">
 
                 <h6 class="text-warning">
-
-                    🟡 در انتظار
-
+                    🟡 در انتظار تأیید
                 </h6>
 
-                <h2>
-
-                    {{ pending_count }}
-
-                </h2>
+                <h2>{{ pending_count }}</h2>
 
             </div>
 
@@ -56,16 +48,10 @@
             <div class="card-body text-center">
 
                 <h6 class="text-primary">
-
-                    🟢 تأیید شده
-
+                    🔵 تأیید شده
                 </h6>
 
-                <h2>
-
-                    {{ approved_count }}
-
-                </h2>
+                <h2>{{ approved_count }}</h2>
 
             </div>
 
@@ -80,16 +66,10 @@
             <div class="card-body text-center">
 
                 <h6 class="text-success">
-
-                    🔵 تحویل داده شده
-
+                    🟢 تحویل داده شده
                 </h6>
 
-                <h2>
-
-                    {{ returned_count }}
-
-                </h2>
+                <h2>{{ returned_count }}</h2>
 
             </div>
 
@@ -108,22 +88,12 @@
         <tr>
 
             <th>ردیف</th>
-
             <th>کتاب</th>
-
-            <th>کاربر</th>
-
             <th>وضعیت</th>
-
+            <th>تاریخ درخواست</th>
             <th>تاریخ امانت</th>
-
             <th>تاریخ تحویل</th>
-
             <th>تاریخ بازگشت</th>
-
-            {% if request.user.is_superuser %}
-                <th>عملیات</th>
-            {% endif %}
 
         </tr>
 
@@ -131,125 +101,89 @@
 
     <tbody>
 
-        {% for borrow in borrows %}
+    {% for borrow in borrows %}
 
         <tr>
 
             <td>{{ forloop.counter }}</td>
 
-            <td>{{ borrow.book }}</td>
+            <td>
 
-            <td>{{ borrow.user }}</td>
+                {% if borrow.book %}
 
-            <td>{% if borrow.status == "pending" %}
+                    {{ borrow.book.title }}
 
-    <span class="badge bg-warning text-dark">
+                    {% if not borrow.book.is_active %}
+                        <span class="badge bg-warning">
+                            بایگانی شده
+                        </span>
+                    {% endif %}
 
-        در انتظار تأیید
+                {% else %}
 
-    </span>
+                    {{ borrow.book_title }}
 
-{% elif borrow.status == "approved" %}
+                    <span class="badge bg-danger">
+                        حذف شده
+                    </span>
 
-    <span class="badge bg-primary">
+                {% endif %}
 
-        تأیید شده
+            </td>
 
-    </span>
+            <td>
 
-{% elif borrow.status == "returned" %}
+                {% if borrow.status == "pending" %}
 
-    <span class="badge bg-success">
+                    <span class="badge bg-warning text-dark">
+                        در انتظار تأیید
+                    </span>
 
-        تحویل شده
+                {% elif borrow.status == "approved" %}
 
-    </span>
+                    <span class="badge bg-primary">
+                        تأیید شده
+                    </span>
 
-{% elif borrow.status == "rejected" %}
+                {% elif borrow.status == "returned" %}
 
-    <span class="badge bg-danger">
+                    <span class="badge bg-success">
+                        تحویل داده شده
+                    </span>
 
-        رد شده
+                {% elif borrow.status == "rejected" %}
 
-    </span>
+                    <span class="badge bg-danger">
+                        رد شده
+                    </span>
 
-{% endif %}
+                {% endif %}
 
-{% if borrow.status == "rejected" and borrow.reject_reason %}
+                {% if borrow.status == "rejected" and borrow.reject_reason %}
 
-    <br>
+                    <br>
 
-    <small class="text-danger">
+                    <small class="text-danger">
 
-        {{ borrow.reject_reason }}
+                        {{ borrow.reject_reason }}
 
-    </small>
+                    </small>
 
-{% endif %}
+                {% endif %}
 
-</td>
+            </td>
+
+            <td>{{ borrow.request_date|date:"Y/m/d H:i" }}</td>
+
             <td>{{ borrow.borrow_date|default:"-" }}</td>
 
             <td>{{ borrow.due_date|default:"-" }}</td>
 
             <td>{{ borrow.return_date|default:"-" }}</td>
 
-            {% if request.user.is_superuser %}
-<td>
-
-    {% if borrow.status == "pending" %}
-
-        <a
-            href="{% url 'borrow-approve' borrow.pk %}"
-            class="btn btn-primary btn-sm">
-
-            بررسی
-
-        </a>
-
-    {% elif borrow.status == "approved" %}
-
-        <form
-            action="{% url 'borrow-return' borrow.pk %}"
-            method="post"
-            class="d-inline">
-
-            {% csrf_token %}
-
-            <button
-                type="submit"
-                class="btn btn-success btn-sm">
-
-                بازگرداندن
-
-            </button>
-
-        </form>
-
-    {% elif borrow.status == "returned" %}
-
-        <span class="badge bg-success">
-
-            تحویل شده
-
-        </span>
-
-    {% elif borrow.status == "rejected" %}
-
-        <span class="badge bg-danger">
-
-            رد شده
-
-        </span>
-
-    {% endif %}
-
-</td>
-            {% endif %}
-
         </tr>
 
-        {% endfor %}
+    {% endfor %}
 
     </tbody>
 
@@ -259,7 +193,7 @@
 
 <div class="alert alert-info">
 
-    هنوز امانتی ثبت نشده است.
+    هنوز هیچ درخواست امانتی ثبت نکرده‌اید.
 
 </div>
 

@@ -1,5 +1,7 @@
-{% extends "shared/_layout.html" %}
-
+{% extends "shared/_admin_layout.html" %}
+{% block sidebar %}
+    {% include "shared/_admin_sidebar.html" %}
+{% endblock %}
 {% block content %}
 
 <div class="container mt-4">
@@ -22,7 +24,7 @@
             حذف
         </button>
 
-        <a href="{% url 'author-list' %}" class="btn btn-secondary">
+        <a href="{% url 'admin-author-list' %}" class="btn btn-secondary">
             انصراف
         </a>
 

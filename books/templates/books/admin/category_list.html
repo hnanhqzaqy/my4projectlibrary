@@ -56,7 +56,6 @@
 
         <tr>
 
-            <th>ردیف</th>
             <th>نام</th>
             <th>عملیات</th>
 
@@ -69,8 +68,6 @@
         {% for category in categories %}
 
             <tr>
-
-                <td>{{ category.id }}</td>
 
                 <td><a href="{% url 'category-detail' category.pk %}" class="text-dark fw-semibold text-decoration-none">{{ category.name }}</a></td>
 
@@ -98,7 +95,7 @@
 
             <tr>
 
-                <td colspan="3">
+                <td colspan="2">
 
                     هیچ دسته‌بندی ثبت نشده است.
 

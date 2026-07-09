@@ -1,5 +1,9 @@
-{% extends "shared/_layout.html" %}
+{% extends "shared/_admin_layout.html" %}
+{% block sidebar %}
 
+    {% include "shared/_admin_sidebar.html" %}
+
+{% endblock %}
 {% block title %}
 کاربران
 {% endblock %}
@@ -16,18 +20,15 @@
 
     {% include "shared/_search.html" %}
 
-    {% include "shared/_messages.html" %}
 
     <table class="table table-striped table-bordered">
 
 
                <thead>
 <tr>
-    <th>ردیف</th>
     <th>نام</th>
     <th>نام خانوادگی</th>
     <th>نام کاربری</th>
-    <th>فعال</th>
     <th>کارمند</th>
     <th>تاریخ عضویت</th>
     <th>عملیات</th>
@@ -44,23 +45,11 @@
 
 <tr>
 
-    <td>{{ forloop.counter }}</td>
-
     <td>{{ user.first_name }}</td>
 
     <td>{{ user.last_name }}</td>
 
     <td>{{ user.username }}</td>
-
-    <td>
-
-        {% if user.is_active %}
-            <span class="badge bg-success">فعال</span>
-        {% else %}
-            <span class="badge bg-danger">غیرفعال</span>
-        {% endif %}
-
-    </td>
 
     <td>
 
@@ -92,7 +81,7 @@
 
 <tr>
 
-    <td colspan="8" class="text-center">
+    <td colspan="6" class="text-center">
 
         کاربری یافت نشد.
 

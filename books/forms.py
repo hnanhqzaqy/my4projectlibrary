@@ -104,7 +104,38 @@ class BookForm(BootstrapFormMixin, forms.ModelForm):
                     "rows": 5,
                 }
             ),
+            "publish_year": forms.NumberInput(
+                attrs={
+                    "class": "form-control",
+                    "step": 1,
+                }
+            ),
+            "isbn": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "inputmode": "numeric",
+                    "oninput": "this.value=this.value.replace(/[^0-9]/g,'')",
+                }
+            ),
         }
+    def clean_publish_year(self):
+        year = self.cleaned_data.get("publish_year")
+        if year is None:
+            return year
+        if year < 1000 or year > 9999:
+            raise forms.ValidationError("سال انتشار باید یک عدد ۴ رقمی باشد.")
+        return year
+
+
+
+    def clean_isbn(self):
+        isbn = self.cleaned_data.get("isbn", "").strip()
+        if len(isbn) != 13:
+            raise forms.ValidationError( "ISBN باید ۱۳ رقم باشد.")
+        return isbn
+
+
+
 
 
 
