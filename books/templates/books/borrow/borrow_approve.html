@@ -9,12 +9,12 @@
 <div class="container mt-4">
 
     <h3>
+
         بررسی درخواست امانت
+
     </h3>
 
-    {% url 'admin-borrow-list' as cancel_url %}
-
-    {% include "shared/_form.html" with cancel_url=cancel_url %}
+    {% include "shared/_form.html" with cancel_url="admin-borrow-list" %}
 
 </div>
 
