@@ -53,3 +53,123 @@ body{
 textarea.form-control{
     resize: none;
 }
+
+
+
+
+
+
+
+/* دکمه پروفایل مدیر */
+
+.admin-user-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    padding: 11px 14px;
+
+    background-color: #ffffff;
+    color: #26364a;
+
+    border: 1px solid #d5dce5;
+    border-radius: 10px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+
+    transition: all 0.2s ease;
+}
+
+.admin-user-toggle:hover,
+.admin-user-toggle:focus {
+    background-color: #eaf2ff;
+    color: #0d6efd;
+    border-color: #0d6efd;
+
+    box-shadow: 0 3px 10px rgba(13, 110, 253, 0.12);
+}
+
+/* آیکون کاربر */
+
+.admin-user-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    background-color: #edf2f7;
+    color: #26364a;
+
+    border: 1px solid #d5dce5;
+    border-radius: 50%;
+
+    font-size: 15px;
+}
+
+.admin-user-toggle:hover .admin-user-icon {
+    background-color: #0d6efd;
+    color: #ffffff;
+    border-color: #0d6efd;
+}
+
+
+
+
+/* Admin Brand */
+.admin-brand-wrapper {
+    display: block;
+    margin: 0 12px 24px;
+    padding: 16px 12px;
+    background: linear-gradient(135deg, #343f50, #293443);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+    transition: all 0.25s ease;
+}
+
+.admin-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    width: 100%;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+}
+
+.admin-brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 11px;
+    font-size: 20px;
+}
+
+.admin-brand:hover {
+    color: #93c5fd !important;
+    transform: translateY(-2px);
+}
+
+.admin-brand-wrapper:hover {
+    background: linear-gradient(135deg, #3b4b61, #303e51);
+    border-color: rgba(147, 197, 253, 0.4);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+}

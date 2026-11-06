@@ -3,11 +3,12 @@
 
     <div>
 
-        <h4 class="text-center mb-4">
-
-            مدیریت کتابخانه
-
-        </h4>
+<div class="admin-brand-wrapper">
+    <a href="{% url 'home' %}" class="admin-brand">
+        <span class="admin-brand-icon">📚</span>
+        <span class="admin-brand-text">Library Management</span>
+    </a>
+</div>
 
         <div class="list-group">
 
@@ -70,15 +71,15 @@
     <div class="dropdown">
 
         <button
-                class="btn btn-outline-light w-100 dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
+    class="btn admin-user-toggle w-100 dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false">
 
-            👤 {{ request.user.username }}
+    <span class="admin-user-icon">👤</span>
+    <span>{{ request.user.username }}</span>
 
-        </button>
-
+</button>
         <ul class="dropdown-menu w-100">
 
             <li>

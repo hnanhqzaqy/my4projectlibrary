@@ -36,7 +36,7 @@
     <div class="container">
 
 <a class="navbar-brand fw-bold"
-   href="{% if request.user.is_authenticated and request.user.is_superuser %}{% url 'dashboard' %}{% else %}{% url 'book-list' %}{% endif %}">
+   href="{% url 'home' %}">
     📚 Library Management
 </a>
 
